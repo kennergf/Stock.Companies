@@ -1,9 +1,7 @@
-namespace Stock.Companies.Data.Entities
+namespace Stock.Companies.Domain.Entities
 {
-    public class Company
+    public class Company : Entity
     {
-        public string Id { get; set; }
-
         public string Name { get; set; }
 
         public string Exchange { get; set; }

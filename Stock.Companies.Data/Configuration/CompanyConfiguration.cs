@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Stock.Companies.Data.Entities;
+using Stock.Companies.Domain.Entities;
 
 namespace Stock.Companies.Data.Configuration
 {

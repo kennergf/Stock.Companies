@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Stock.Companies.Data.Configuration;
-using Stock.Companies.Data.Entities;
+using Stock.Companies.Domain.Entities;
 
 namespace Stock.Companies.Data.Context
 {
