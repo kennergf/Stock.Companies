@@ -52,6 +52,7 @@ namespace Stock.Companies.API
             });
 
             services.AddScoped<INotifier, Notifier>();
+            services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
         }
 

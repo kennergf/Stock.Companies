@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -14,13 +15,29 @@ namespace Stock.Companies.API.Controllers
     {
         //private readonly ICompanyService _companyService;
         private readonly ICompanyRepository _companyRepository;
+        private readonly ICompanyService _companyService;
         private readonly IMapper _mapper;
 
-        public CompanyController(INotifier notifier, ICompanyRepository companyRepository,
+        public CompanyController(INotifier notifier, ICompanyRepository companyRepository, ICompanyService companyService,
                                  IMapper mapper) : base(notifier)
         {
             _companyRepository = companyRepository;
+            _companyService = companyService;
             _mapper = mapper;
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<CompanyViewModel>> GetById([FromQuery] string id)
+        {
+            var result = _mapper.Map<CompanyViewModel>(await _companyRepository.GetById(Guid.Parse(id)));
+            return CustomResponse(result);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<CompanyViewModel>> GetByISIN([FromQuery] string isin)
+        {
+            var result = _mapper.Map<CompanyViewModel>(await _companyRepository.GetByISIN(isin));
+            return CustomResponse(result);
         }
 
         [HttpPost]
@@ -28,7 +45,7 @@ namespace Stock.Companies.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await _companyRepository.Add(_mapper.Map<Company>(companyViewModel));
+            await _companyService.Add(_mapper.Map<Company>(companyViewModel));
             // TODO return something more meaningful
             return CustomResponse(companyViewModel);
         }
@@ -39,5 +56,21 @@ namespace Stock.Companies.API.Controllers
             var result = _mapper.Map<IEnumerable<CompanyViewModel>>(await _companyRepository.GetAll());
             return CustomResponse(result);
         }
+
+        [HttpPut("id:guid")]
+        public async Task<ActionResult<CompanyViewModel>> Update(Guid id, [FromBody] CompanyViewModel companyViewModel)
+        {
+            if (id != companyViewModel.Id)
+            {
+                NotifyErro("The Id provided is not the same infomed on the Company");
+                return CustomResponse(companyViewModel);
+            }
+
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            await _companyService.Update(id, _mapper.Map<Company>(companyViewModel));
+            return CustomResponse(companyViewModel);
+        }
+
     }
 }
