@@ -15,16 +15,6 @@ namespace Stock.Companies.Data.Configuration
         {
             builder.ToTable("Company");
             builder.HasKey(x => x.Id);
-
-            builder.Property(x => x.Id)
-                //.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity)
-                .HasColumnType("varchar(36)")
-                .HasMaxLength(36)
-                .IsRequired();
-
-            builder.HasIndex(x => x.Id)
-                .HasDatabaseName("IdIndex")
-                .IsUnique();
             
             builder.Property(x => x.Name)
                 .HasColumnType("varchar(256)")
@@ -47,7 +37,7 @@ namespace Stock.Companies.Data.Configuration
                 .IsRequired();
             
             builder.HasIndex(x => x.ISIN)
-                .HasDatabaseName("ISINIndex")
+                .HasDatabaseName("IX_Company_ISIN")
                 .IsUnique();
             
             builder.Property(x => x.WebSite)
