@@ -30,15 +30,14 @@ namespace Stock.Companies.Domain.Services
 
         public async Task<Company> Update(Guid id, Company company)
         {
-            var existingCompany = await _companyRepository.GetByISIN(company.ISIN);
-            if (existingCompany != null && existingCompany?.ISIN == company.ISIN)
+            if(id != company.Id)
             {
-                Notify($"Can not insert duplicate ISIN for Company. Duplicate ISIN is ({company.ISIN})");
+                Notify("The Id provided is not the same infomed on the Company");
                 return null;
             }
             else
             {
-                await _companyRepository.Add(company);
+                await _companyRepository.Update(company);
                 return company;
             }
         }
