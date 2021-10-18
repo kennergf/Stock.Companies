@@ -33,6 +33,7 @@ namespace Stock.Companies.API.Controllers
                 return Ok(new
                 {
                     success = true,
+                    message = "",
                     data = result
                 });
             }
@@ -40,6 +41,7 @@ namespace Stock.Companies.API.Controllers
             return BadRequest(new
             {
                 success = false,
+                message = "",
                 errors = _notifier.GetNotifications().Select(n => n.Message)
             });
         }

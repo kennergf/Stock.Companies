@@ -57,7 +57,7 @@ namespace Stock.Companies.API.Controllers
             return CustomResponse(result);
         }
 
-        [HttpPut("id:guid")]
+        [HttpPut]
         public async Task<ActionResult<CompanyViewModel>> Update(Guid id, [FromBody] CompanyViewModel companyViewModel)
         {
             if (id != companyViewModel.Id)
