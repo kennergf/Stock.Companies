@@ -7,8 +7,9 @@ using Stock.Companies.Data.Context;
 namespace Stock.Companies.Data.ContextFactory
 {
     /// <summary>
-    /// The Context Factory will configure our context with the connection string to be user in the Migration for example.
-    /// The string connection should not be stored within the code, UserSecret or other credential Vault should be used here
+    /// The Context Factory will configure our context with the connection string to be used in the Migration for example.
+    /// This Context Factory is only necessary for Design-time DbContext Creation required to run Migrations
+    /// The string connection should not be stored within the code.
     /// </summary>
     public class MSSQLContextFactory : IDesignTimeDbContextFactory<MSSQLContext>
     {
